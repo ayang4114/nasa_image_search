@@ -137,7 +137,7 @@ class Photo extends Component {
           <span className="close_modal" onClick={this.closeModal.bind(this)}>
             &times;</span>
           {/* the image content in the modal */}
-          <img id="modal_img" className="photo_modal_img" />
+          <img id="modal_img" alt={this.state.title} giclassName="photo_modal_img" />
           {/* Description and text about the image */}
           <div id="caption"></div>
         </div>

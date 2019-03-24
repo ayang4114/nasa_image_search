@@ -70,7 +70,6 @@ class App extends Component {
       }
       parameters += this.parseParam(value.trim());
     }
-    console.log(url + parameters)
     return url + parameters;
   }
 
