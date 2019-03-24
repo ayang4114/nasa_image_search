@@ -1,0 +1,101 @@
+table#gallery {
+  margin: 15px 0px;
+  float: center;
+  width: 100%;
+}
+
+table#gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #000;
+  border-radius: 14px;
+}
+
+.galleryDivider {
+  border: 1px solid rgb(28, 27, 27);
+  background-color: rgba(244, 237, 237, 0.75);
+  border-radius: 14px;
+  margin: 3px 3px;
+  transition: 300ms;
+  text-align: center;
+}
+
+.galleryDivider:hover {
+  box-shadow: 10px 10px 153px #e4dada;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* Building the modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 200%;
+  overflow: auto;
+  scroll-behavior: smooth;
+  background-color: rgba(0, 0, 0, 0.906);
+}
+
+#caption {
+  float: right;
+  display: block;
+  position: auto;
+  width: 80%;
+  max-width: 700px;
+  height: 100%;
+  text-align: center;
+  color: white;
+  padding: 0px 100px;
+  white-space: pre-line;
+  word-wrap: break-word;
+  object-fit: contain;
+}
+
+.photo_modal_img {
+  margin: 0px 40px;
+  float: left;
+  width: 50px;
+  height: 50px;
+  object-fit: scale-down;
+}
+
+.photo_modal_img, #caption {
+  animation-name: zoom;
+  animation-duration: 600ms;
+  max-width: 40%;
+}
+
+@keyframes zoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+/* X button */
+.close_modal {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 300ms;
+  cursor: pointer;
+}
+
+.close:hover, .close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 700px) {
+  .photo_modal_img {
+    width: 100%;
+  }
+}

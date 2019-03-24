@@ -1,0 +1,126 @@
+
+.Search-header {
+  height: 150%;
+  background-color: rgb(34, 34, 34);
+  background: url(./assets/na_stars.jpg);
+  background-size: 100% auto;
+}
+
+#search-name {
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+  margin: 40px 20px;
+  font-weight: 900px;
+}
+
+#search-bar {
+  margin: 10px 20px;
+  width: 350px;
+  height: 30px;
+  font-size: 20px;
+  border: 3px solid black;
+  border-radius: 14px;
+}
+
+button.search-submit {
+  margin: 0px 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 14px;
+}
+
+button.main-submit:hover {
+  cursor: pointer;
+}
+
+#search-end {
+  text-align: center;
+  height: 20px;
+  font-size: 20px;
+  background-color: red;
+}
+
+#search-end button{
+  margin: 40px 30px;
+  padding: 10px 40px;
+  font-size: 20px;
+  border-radius: 14px;
+}
+
+#search-end button:hover {
+  cursor: pointer;
+}
+
+.overlay {
+  height: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-color: rgba(18, 17, 17, 0.9);
+  overflow-y: hidden;
+  transition: 500ms;
+}
+
+.overlay-content {
+  position: relative;
+  top: 5%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 26px;
+  color: #e3e3e3;
+  display: block;
+  transition: 300ms;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #52a9f5;
+}
+
+.overlay .closebutton {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {overflow-y: auto};
+  .overlay a {font-size: 20px}
+  .overlay .closebutton {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}
+
+.specify {
+  width: 30%;
+  height: 20px;
+  font-size: 16px;
+}
+
+.year-slider {
+  position: relative;
+  width: 1000px;
+  margin: 0 auto 20px;
+  height: 35px;
+  text-align: center;
+}
+
+#specify-button { 
+  width: 80px;
+  height: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}

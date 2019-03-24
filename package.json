@@ -1,0 +1,33 @@
+{
+  "name": "my-app2",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "http://ayang4114.github.io/nasa_image_search",
+  "dependencies": {
+    "babel-loader": "^8.0.5",
+    "oboe": "^2.1.4",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "react-scripts": "2.1.8"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}
