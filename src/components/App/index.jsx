@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './style.css';
 import Search from '../Search/index'
 import SearchModal from '../SearchModal'
-import { throws } from 'assert';
+import MainPage from '../MainPage';
 
 const apiRoot = "https://images-api.nasa.gov/search";
 
@@ -15,9 +15,9 @@ class App extends Component {
     this.setSearchModalVisibility = this.setSearchModalVisibility.bind(this)
     this.renderSearchModal = this.renderSearchModal.bind(this)
     this.parseParam = this.parseParam.bind(this)
+    this.renderPage = this.renderPage.bind(this)
     // The fields of input are the search criteria a user may wish to modify.
     this.state = {
-      quote: this.props.quote,
       input: {
         q: "",
         media_type: "image",
@@ -28,6 +28,7 @@ class App extends Component {
         year_end: new Date().getFullYear(), // Number
       },
       showSearchModal: false,
+      page: 'main',
       jsonReady: false,
       json: null
     }
@@ -70,7 +71,6 @@ class App extends Component {
     var field;
     let fields = this.state.input
     for (field in fields) {
-      console.log(field, value)
       var value = fields[field].toString();
       if (value === null || value === "") { continue; }
       parameters += parameters === "" ? "?" + field + "=" : "&" + field + "="
@@ -92,20 +92,12 @@ class App extends Component {
         this.setState({
           jsonReady: true,
           json: j,
+          page: 'results'
         })
       })
-      .then(() => {
-        ReactDOM.render(
-          <Search
-            inputs={this.state.input}
-            json={this.state.json}
-            prev_json={null}
-            next_json={null}
-          />
-          , document.getElementById('root'))
-      })
       .catch(error => {
-        alert("An error was encountered while attempting to connect to the server.")
+        alert("An error was encountered while attempting to connect to the server.\n"
+          + error.toString() + "\n\n" + url)
       })
   }
 
@@ -140,6 +132,27 @@ class App extends Component {
     }
   }
 
+  renderPage() {
+    switch (this.state.page) {
+      case 'main':
+        return <MainPage
+          updateSearchQuery={event => this.updateSearchQuery('q', event.target.value)}
+          pressedSearch={() => this.pressedSearch()}
+          setSearchModalVisibility={() => this.setSearchModalVisibility(true)}
+          query={this.state.input.q}
+        />
+      case 'results':
+        return <Search
+          inputs={this.state.input}
+          json={this.state.json}
+          prev_json={null}
+          next_json={null}
+        />
+      default:
+        throw new Error('Attempted to render a non-declared page.')
+    }
+  }
+
   // The following update[Param]() functions are called whenever the
   // input field associated to the paramters are changed.
   // This can occur in the regular search bar field, or in the specific
@@ -159,22 +172,8 @@ class App extends Component {
   render() {
     return (
       <header className="App-header">
-        <section id="main-page">
-          <a href="index.html" id="name"> NASA Image Archive </a>
-          <h3 style={{ color: "#0070ff" }}> {this.state.quote} </h3>
-          <input
-            type='text'
-            value={this.state.input.q}
-            onChange={event => this.updateSearchQuery('q', event.target.value)}
-            id="app-search-bar"></input> <br />
-          <button className="main-submit"
-            onClick={() => this.pressedSearch()}>Search</button>
-          <button className="main-submit"
-            onClick={() => this.setSearchModalVisibility(true)}>
-            Specify My Search
-              </button>
-          {this.renderSearchModal()}
-        </section>
+        {this.renderPage()}
+        {this.renderSearchModal()}
       </header>
     );
   }

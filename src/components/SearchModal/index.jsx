@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './style.css'
 
 export default class SearchModal extends Component {
-
   constructor(props) {
     super(props);
     this.setVisibility = this.props.setVisibility
