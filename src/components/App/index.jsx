@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
-import './App.css';
-import Search from './Search.js'
+import './index.css';
+import Search from '../Search/index'
 
 const apiRoot = "https://images-api.nasa.gov";
 
