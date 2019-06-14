@@ -28,6 +28,7 @@ export default class SearchModal extends Component {
               min="1" max={new Date().getFullYear()}
               step="2" type="range"
               onChange={event => this.updateFields(key, event.target.value)} />
+            <br />
           </div>
         )
       } else {
@@ -65,9 +66,6 @@ export default class SearchModal extends Component {
   render() {
     return (
       <div id="specific_search" className="overlay">
-        <a href="javascript:void(0)" className="closebutton"
-          onClick={() => this.setVisibility(false)}>
-          &times;</a>
         <div className="overlay-content">
           {this.renderFields()}
           <br />
@@ -75,8 +73,11 @@ export default class SearchModal extends Component {
             id="specify-button">
             Search
           </button>
+          <a href="javascript:void(0)" className="closebutton"
+            onClick={() => this.setVisibility(false)}>
+            &times;</a>
         </div>
-      </div>
+      </div >
     );
   }
 }
