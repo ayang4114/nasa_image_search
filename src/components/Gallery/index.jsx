@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './index.css'
+import './style.css'
 
 /**
  * processCaptionText() produces a caption for an image/video/audio

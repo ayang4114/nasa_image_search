@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Table from '../Gallery/index'
-import './index.css';
+import './style.css';
 const apiRoot = "https://images-api.nasa.gov";
 
 class Search extends Component {
