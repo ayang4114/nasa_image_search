@@ -5,14 +5,13 @@
   z-index: 1;
   left: 0;
   background-color: rgba(18, 17, 17, 0.9);
-  overflow-y: hidden;
   transition: 500ms;
 }
 
 .overlay-content {
   position: relative;
   top: 0;
-  width: 60%;
+  width: 100%;
   text-align: center;
   margin-top: 30px;
 }

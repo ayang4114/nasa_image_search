@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import './style.css';
 import Search from '../Search/index'
 import SearchModal from '../SearchModal'
+import { throws } from 'assert';
 
-const apiRoot = "https://images-api.nasa.gov";
+const apiRoot = "https://images-api.nasa.gov/search";
 
 class App extends Component {
 
@@ -13,6 +14,7 @@ class App extends Component {
     this.updateSearchQuery = this.updateSearchQuery.bind(this)
     this.setSearchModalVisibility = this.setSearchModalVisibility.bind(this)
     this.renderSearchModal = this.renderSearchModal.bind(this)
+    this.parseParam = this.parseParam.bind(this)
     // The fields of input are the search criteria a user may wish to modify.
     this.state = {
       quote: this.props.quote,
@@ -36,13 +38,17 @@ class App extends Component {
    * for a URL. For instance, parameters with whitespaces in the front or in
    * the back of the string are trimmed. In addition, whitespaces that
    * separate words in parameters are replaced by "%20".
+   * 
+   * @requires param is a trimmed string.
+   * 
    */
   parseParam(param) {
     var words = param.split(" ");
-    words = words.filter(w => w !== "");
-    let newWords = words.map(w => w + "%20");
+    // Remove empty strings
+    words = words.filter(w => w != "");
+    const newWords = words.map(w => w + "%20");
     var newParams = "";
-    let max = words.length;
+    const max = words.length;
     var i;
     for (i = 0; i < max - 1; i++) {
       newParams += newWords[i];
@@ -60,21 +66,18 @@ class App extends Component {
    * year_end = the current year.
    */
   searchURL() {
-    var url = apiRoot + "/search";
     var parameters = "";
     var field;
     let fields = this.state.input
     for (field in fields) {
+      console.log(field, value)
       var value = fields[field].toString();
       if (value === null || value === "") { continue; }
-      if (parameters === "") {
-        parameters += "?" + field + "=";
-      } else {
-        parameters += "&" + field + "=";
-      }
+      parameters += parameters === "" ? "?" + field + "=" : "&" + field + "="
       parameters += this.parseParam(value.trim());
     }
-    return url + parameters;
+    console.log('url', apiRoot + parameters)
+    return apiRoot + parameters;
   }
 
   /**
@@ -100,7 +103,6 @@ class App extends Component {
             next_json={null}
           />
           , document.getElementById('root'))
-        // window.open("search.html")
       })
       .catch(error => {
         alert("An error was encountered while attempting to connect to the server.")
@@ -114,11 +116,11 @@ class App extends Component {
    * is based on the year_start = 1 and year_end = the current year.
    */
   pressedSearch() {
-    this.searchServer(this.searchURL())
+    const url = this.searchURL()
+    this.searchServer(url)
   }
 
   setSearchModalVisibility(value) {
-    console.log('change', value)
     this.setState({
       showSearchModal: value
     })
@@ -133,7 +135,7 @@ class App extends Component {
           visibility={this.state.showSearchModal}
           update={this.updateSearchQuery}
           setVisibility={this.setSearchModalVisibility}
-          goSearch={this.pressedSearch} />
+          goSearch={() => this.pressedSearch()} />
       )
     }
   }
@@ -143,11 +145,10 @@ class App extends Component {
   // This can occur in the regular search bar field, or in the specific
   // search screen.
   updateSearchQuery(field, value) {
-    console.log('Fired', field)
     const copy = Object.assign({}, this.state.input)
-    const this_year = new Date().getFullYear
+    const this_year = new Date().getFullYear()
     if (field === 'year_end' || field === 'year_start') {
-      value = Math.min(this_year, value)
+      value = Math.min(this_year, parseInt(value))
     }
     copy[field] = value;
     this.setState({
@@ -157,27 +158,24 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <section id="main-page">
-            <a href="index.html" id="name"> NASA Image Archive </a>
-            <h3 style={{ color: "#0070ff" }}> {this.state.quote} </h3>
-            <div>
-              <input
-                type='text'
-                value={this.state.input.q}
-                onChange={event => this.updateSearchQuery('q', event.target.value)}
-                id="app-search-bar"></input> <br />
-              <button className="main-submit"
-                onClick={() => this.pressedSearch}>Search</button>
-              <button className="main-submit"
-                onClick={() => this.setSearchModalVisibility(true)}>Specify My Search
+      <header className="App-header">
+        <section id="main-page">
+          <a href="index.html" id="name"> NASA Image Archive </a>
+          <h3 style={{ color: "#0070ff" }}> {this.state.quote} </h3>
+          <input
+            type='text'
+            value={this.state.input.q}
+            onChange={event => this.updateSearchQuery('q', event.target.value)}
+            id="app-search-bar"></input> <br />
+          <button className="main-submit"
+            onClick={() => this.pressedSearch()}>Search</button>
+          <button className="main-submit"
+            onClick={() => this.setSearchModalVisibility(true)}>
+            Specify My Search
               </button>
-              {this.renderSearchModal()}
-            </div>
-          </section>
-        </header>
-      </div>
+          {this.renderSearchModal()}
+        </section>
+      </header>
     );
   }
 }
