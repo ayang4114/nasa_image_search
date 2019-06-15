@@ -1,4 +1,4 @@
-# Nasa Image Search Web App (Capital One May 2019 SES Summit Application Winner)
+# NASA Image Search Web App (Capital One May 2019 SES Summit Application Winner)
 
 ## Link to Deployed Website
 * https://ayang4114.github.io/nasa_image_search/
