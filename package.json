@@ -5,9 +5,11 @@
   "homepage": "http://ayang4114.github.io/nasa_image_search",
   "dependencies": {
     "babel-loader": "^8.0.5",
+    "history": "^4.9.0",
     "oboe": "^2.1.4",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
+    "react-router": "^5.0.1",
     "react-scripts": "2.1.8"
   },
   "scripts": {
