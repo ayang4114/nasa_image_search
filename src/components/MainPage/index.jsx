@@ -9,7 +9,7 @@ export default class MainPage extends Component {
     super(props)
     this.updateSearchQuery = this.props.updateSearchQuery
     this.pressedSearch = this.props.pressedSearch
-    this.setSearchModalVisibility = this.props.setSearchModalVisibility
+    this.openSearchModal = this.props.openSearchModal
   }
 
   render() {
@@ -25,7 +25,7 @@ export default class MainPage extends Component {
         <button className="main-submit"
           onClick={this.pressedSearch}>Search</button>
         <button className="main-submit"
-          onClick={this.setSearchModalVisibility}>
+          onClick={this.openSearchModal}>
           Specify My Search
         </button>
       </section>

@@ -30,7 +30,8 @@ class App extends Component {
       showSearchModal: false,
       page: 'main',
       jsonReady: false,
-      json: null
+      items: null,
+      links: null
     }
   }
 
@@ -89,10 +90,18 @@ class App extends Component {
     fetch(url)
       .then(response => response.json())
       .then(j => {
+        var links = {}
+        if (j.collection.links) {
+          for (var i of j.collection.links) {
+            const prompt = i.prompt
+            links[prompt] = i.href
+          }
+        }
         this.setState({
           jsonReady: true,
-          json: j,
-          page: 'results'
+          items: j.collection.items,
+          page: 'results',
+          links
         })
       })
       .catch(error => {
@@ -108,6 +117,8 @@ class App extends Component {
    * is based on the year_start = 1 and year_end = the current year.
    */
   pressedSearch() {
+    console.log('Pressed search', this.state.input)
+    this.setSearchModalVisibility(false)
     const url = this.searchURL()
     this.searchServer(url)
   }
@@ -138,15 +149,18 @@ class App extends Component {
         return <MainPage
           updateSearchQuery={event => this.updateSearchQuery('q', event.target.value)}
           pressedSearch={() => this.pressedSearch()}
-          setSearchModalVisibility={() => this.setSearchModalVisibility(true)}
+          openSearchModal={() => this.setSearchModalVisibility(true)}
           query={this.state.input.q}
         />
       case 'results':
         return <Search
+          updateSearchQuery={event => this.updateSearchQuery('q', event.target.value)}
+          pressedSearch={() => this.pressedSearch()}
+          pressedNavigation={url => this.searchServer(url)}
+          openSearchModal={() => this.setSearchModalVisibility(true)}
           inputs={this.state.input}
-          json={this.state.json}
-          prev_json={null}
-          next_json={null}
+          items={this.state.items}
+          links={this.state.links}
         />
       default:
         throw new Error('Attempted to render a non-declared page.')
