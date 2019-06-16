@@ -12,6 +12,9 @@ class Search extends Component {
     this.pressedSearch = this.props.pressedSearch
     this.pressedNavigation = this.props.pressedNavigation
     this.openSearchModal = this.props.openSearchModal
+    this.state = {
+      isScrollable: true
+    }
   }
 
   /** 
@@ -40,6 +43,9 @@ class Search extends Component {
 
   render() {
     const nav = this.renderPrevAndNext()
+
+
+
     return (
       <header id="search-header">
         <section id='search-tools'>
