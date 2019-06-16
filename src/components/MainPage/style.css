@@ -1,13 +1,12 @@
 section#main-page {
   text-align: center;
-  background-color: #4a4acd;
-  background: url(../../assets/na_stars.jpg);
+  background-color: 0;
+  /* background: url(../../assets/na_stars.jpg); */
   background-size: 100% auto;
   padding: 150px;
   opacity: 1;
   background-position: center;
   background-attachment: fixed;
-  min-width: 80%;
   max-width: 100%;
   min-height: 400px;
 }

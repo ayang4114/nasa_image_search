@@ -52,10 +52,9 @@ export default class TablePhoto extends Component {
     this.closeModal = this.closeModal.bind(this)
     this.getBetterPicture = this.getBetterPicture.bind(this)
     this.image = this.item.links[0].href
-    this.title = this.item.data[0].title
+    this.data = this.item.data
+    this.title = this.data[0].title
     this.state = {
-      title: this.props.title,
-      data: this.props.data,
       modal_image: null,
     };
   }
@@ -71,7 +70,7 @@ export default class TablePhoto extends Component {
       .catch(error => {
         console.log(error)
         this.setState({
-          modal_image: this.state.image
+          modal_image: this.image
         })
       })
   }
@@ -89,7 +88,7 @@ export default class TablePhoto extends Component {
     var captionText = document.getElementById('caption');
     modal.style.display = "block";
     modalImage.src = this.state.modal_image;
-    captionText.innerHTML = processCaptionText(this.state.data);
+//    captionText.innerHTML = processCaptionText(this.state.data);
   }
 
   closeModal() {

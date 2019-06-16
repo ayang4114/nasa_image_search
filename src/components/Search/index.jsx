@@ -42,21 +42,25 @@ class Search extends Component {
     const nav = this.renderPrevAndNext()
     return (
       <header id="search-header">
-        <a href="index.html" id="search-name"> NASA Image Archive </a>
-        <input value={this.props.inputs.q}
-          onChange={this.updateSearchQuery}
-          id="search-bar"></input>
-        <button className="search-submit"
-          onClick={this.pressedSearch}>Search</button>
-        <button className="search-submit"
-          onClick={this.openSearchModal}>Specify My Search</button>
-        {nav}
-        <SearchTable
-          items={this.props.items}
-          row={this.row}
-          col={this.col}
-        />
-        {nav}
+        <section id='search-tools'>
+          <a href="index.html" id="search-name"> NASA Image Archive </a>
+          <input value={this.props.inputs.q}
+            onChange={this.updateSearchQuery}
+            id="search-bar"></input>
+          <button className="search-submit"
+            onClick={this.pressedSearch}>Search</button>
+          <button className="search-submit"
+            onClick={this.openSearchModal}>Specify My Search</button>
+        </section>
+        <section id='search-results'>
+          {nav}
+          <SearchTable
+            items={this.props.items}
+            row={this.row}
+            col={this.col}
+          />
+          {nav}
+        </section>
       </header>
     );
   }

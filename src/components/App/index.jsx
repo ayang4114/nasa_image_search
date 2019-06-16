@@ -185,7 +185,7 @@ class App extends Component {
 
   render() {
     return (
-      <header className="App-header">
+      <header id="App-header">
         {this.renderPage()}
         {this.renderSearchModal()}
       </header>
